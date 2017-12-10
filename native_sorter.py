@@ -3,19 +3,19 @@ import os
 import shutil
 
 if __name__ == '__main__':
-    countries = {}
+    native_langs = {}
     with open('./data/speech-accent-archive/speakers_all.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            country = row['country'].replace(' ', '_')
-            if not country:
+            native_lang = row['native_language'].replace(' ', '_')
+            if not native_lang:
                 continue
-            if country not in countries:
-                os.makedirs('./data/speech-accent-archive/recordings/%s' % country)
-                countries[country] = 1
+            if native_lang not in native_langs:
+                os.makedirs('./data/speech-accent-archive/recordings/%s' % native_lang)
+                native_langs[native_lang] = 1
             try:
                 shutil.move('./data/speech-accent-archive/recordings/%s.mp3' % row['filename'],
                             './data/speech-accent-archive/recordings/%s/%s.mp3' % (
-                            country, row['filename']))
+                                native_lang, row['filename']))
             except:
                 continue
